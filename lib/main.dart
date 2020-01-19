@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:geolocator/geolocator.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -31,13 +33,11 @@ class MapSampleState extends State<MapSample> {
     zoom: 14.4746,
   );
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792)
-  );
+  Position userLocation;
 
   @override
   void initState() {
+    _getLocation();
     super.initState();
 
     rootBundle.loadString('assets/map_style.txt').then((string) {
@@ -51,6 +51,7 @@ class MapSampleState extends State<MapSample> {
       body: GoogleMap(
         mapType: MapType.normal,
         myLocationEnabled: true,
+        zoomGesturesEnabled: true,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           controller.setMapStyle(_mapStyle);
@@ -58,15 +59,33 @@ class MapSampleState extends State<MapSample> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
+        onPressed: _goToNearestGreenSpace,
         label: Text('To the lake!'),
         icon: Icon(Icons.directions_boat),
       ),
     );
   }
 
-  Future<void> _goToTheLake() async {
+  Future<void> _goToNearestGreenSpace() async {
+    print("Find and navigate to nearest green space");
+  }
+
+  Future<void> _changeCameraPosition(Position position) async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    controller.animateCamera(CameraUpdate.newCameraPosition(getCameraPositionFromPosition(position)));
+  }
+
+  CameraPosition getCameraPositionFromPosition(Position location) {
+    return CameraPosition(
+      target: LatLng(location.latitude, location.longitude),
+      zoom: 14.4746,
+    );
+  }
+
+  Future<void> _getLocation() async {
+    Position currentLocation = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print("locationLatitude: ${currentLocation.latitude}");
+    print("locationLongitude: ${currentLocation.longitude}");
+    _changeCameraPosition(currentLocation);
   }
 }
