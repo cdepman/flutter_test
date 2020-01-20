@@ -65,6 +65,7 @@ class MapSampleState extends State<MapSample> {
     return new GoogleMap(
       mapType: MapType.normal,
       myLocationEnabled: true,
+      myLocationButtonEnabled: false,
       zoomGesturesEnabled: true,
       initialCameraPosition: getCameraPositionFromPosition(userLocation),
       onMapCreated: (GoogleMapController controller) {
