@@ -29,6 +29,9 @@ dependencies:
   # Geolocator plugin
   geolocator: ^5.2.0
 
+  # Waiting Spinner
+  flutter_spinkit: ^4.1.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
