@@ -69,6 +69,7 @@ class MapSampleState extends State<MapSample> {
 
   Future<void> _goToNearestGreenSpace() async {
     print("Find and navigate to nearest green space");
+    // TODO: use GooglePlaces to find nearest green spaces and show in drawer or on Map
   }
 
   Future<void> _changeCameraPosition(Position position) async {
