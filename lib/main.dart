@@ -79,6 +79,7 @@ class MapSampleState extends State<MapSample> {
     return new Scaffold(
       body: _pageToDisplay,
       floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.green,
         onPressed: _goToNearestGreenSpace,
         label: Text('Find Nature'),
         icon: Icon(GreenspaceIcons.flower_tulip),
