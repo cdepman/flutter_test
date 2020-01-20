@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:geolocator/geolocator.dart';
+import 'presentation/greenspace_icons_icons.dart';
 
 
 void main() => runApp(MyApp());
@@ -60,8 +61,8 @@ class MapSampleState extends State<MapSample> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToNearestGreenSpace,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+        label: Text('Nearest Greenspace'),
+        icon: Icon(GreenspaceIcons.flower_tulip),
       ),
     );
   }
